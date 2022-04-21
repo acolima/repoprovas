@@ -1,4 +1,4 @@
-import logo from '../assets/logo.png'
+import logo from '../../assets/logo.png'
 import { 
   Button, 
   Buttons, 
@@ -10,7 +10,7 @@ import {
   Logo,
   StyledLink,
   Title
-} from '../components/formComponents'
+} from '../../components/formComponents'
 
 function SignIn() {
   return (

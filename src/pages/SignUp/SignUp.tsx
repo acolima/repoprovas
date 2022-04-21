@@ -2,7 +2,8 @@ import { FormEvent, useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import logo from '../assets/logo.png'
+import logo from '../../assets/logo.png'
+import logoGithub from '../../assets/logo-github.png'
 import { 
   Button, 
   Buttons, 
@@ -14,9 +15,9 @@ import {
   Logo,
   StyledLink,
   Title
-} from '../components/formComponents'
+} from '../../components/formComponents'
 
-import * as api from '../services/api'
+import * as api from '../../services/api'
 
 function SignUp() {
   const [email, setEmail] = useState('')
@@ -26,7 +27,7 @@ function SignUp() {
 
   const navigate = useNavigate()
 
-  async function handleSubmit(event: FormEvent) {
+  function handleSubmit(event: FormEvent) {
     event.preventDefault()
     setDisabled(true)
 
@@ -50,13 +51,29 @@ function SignUp() {
     })
   }
 
+  function handleLoginGithub(){
+    Swal.fire({
+      title: 'Em breve',
+      showConfirmButton: false,
+      timer: 2000,
+      width: 400,
+      imageUrl: logoGithub,
+      imageWidth: 100,
+      imageHeight: 100,
+      imageAlt: 'Logo Github',
+    })
+  }
+
   return (
     <Container>
-      <Logo src={logo} />
+      <Logo src={logo} alt='RepoProvas logo'/>
       
       <Form onSubmit={handleSubmit}>
         <Title>Cadastro</Title>
-        <GithubButton>Entrar com o Github</GithubButton>
+        <GithubButton 
+          type='button'
+          onClick={handleLoginGithub}  
+        >Entrar com o Github</GithubButton>
         <HorizontalSeparator><span>ou</span></HorizontalSeparator>
         <Input
           type='email' 
