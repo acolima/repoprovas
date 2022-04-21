@@ -27,7 +27,7 @@ function SignUp() {
 
   const navigate = useNavigate()
 
-  function handleSubmit(event: FormEvent) {
+  function handleSubmit(event) {
     event.preventDefault()
     setDisabled(true)
 
@@ -43,7 +43,7 @@ function SignUp() {
       return 
     }
 
-    api.createUser(email, password)
+    api.createUser({email, password})
     .then(() => navigate('/'))
     .catch(error => {
       Swal.fire({icon: 'error', text: error.response.data})
