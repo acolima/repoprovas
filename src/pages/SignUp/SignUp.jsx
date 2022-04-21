@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react'
+import { useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
@@ -20,30 +20,35 @@ import {
 import * as api from '../../services/api'
 
 function SignUp() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [userData, setUserData] = useState({
+    email: '',
+    password: ''
+  })
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
   const [disabled, setDisabled] = useState(false)
-
   const navigate = useNavigate()
+
+  function handleInput(e) {
+    setUserData({...userData, [e.target.name]: e.target.value})
+  }
 
   function handleSubmit(event) {
     event.preventDefault()
     setDisabled(true)
 
-    if(password.length < 6){
+    if(userData.password.length < 6){
       Swal.fire({icon: 'error', text: 'A senha deve ter pelo menos 6 caracteres'})
       setDisabled(false)
       return 
     }
     
-    if(password !== passwordConfirmation){
+    if(userData.password !== passwordConfirmation){
       Swal.fire({icon: 'error', text: 'Senhas não coincidem'})
       setDisabled(false)
       return 
     }
 
-    api.createUser({email, password})
+    api.createUser(userData)
     .then(() => navigate('/'))
     .catch(error => {
       Swal.fire({icon: 'error', text: error.response.data})
@@ -78,16 +83,18 @@ function SignUp() {
         <Input
           type='email' 
           placeholder='Email'
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
+          name='email'
+          onChange={handleInput}
+          value={userData.email}
           disabled={disabled}
           required
         />
         <Input 
           type='password'
           placeholder='Senha'
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
+          name='password'
+          onChange={handleInput}
+          value={userData.password}
           disabled={disabled}
           required
         />

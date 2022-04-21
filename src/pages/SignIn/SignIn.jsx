@@ -1,8 +1,9 @@
-import { FormEvent, useState } from 'react'
+import { useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import logo from '../../assets/logo.png'
+import logoGithub from '../../assets/logo-github.png'
 import { 
   Button, 
   Buttons, 
@@ -15,48 +16,76 @@ import {
   StyledLink,
   Title
 } from '../../components/formComponents'
+import useAuth from '../../hooks/useAuth'
 import * as api from '../../services/api'
 
 function SignIn() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [userData, setUserData] = useState({
+    email: '',
+    password: ''
+  })
   const [disabled, setDisabled] = useState(false)
+  const { setLocalAuth } = useAuth()
   const navigate = useNavigate()
+
+  function handleInput(e) {
+    setUserData({...userData, [e.target.name]: e.target.value})
+  }
 
   function handleSubmit(e){
     e.preventDefault()
     setDisabled(true)
 
-    api.login({email, password})
+    api.login(userData)
     .then((response) => {
       navigate('/home')
-      console.log(response)
+      setLocalAuth(response.data)
     })
     .catch((error) => {
       Swal.fire({icon: 'error', text: error.response.data})
+      setDisabled(false)
     })
   }
+
+  function handleLoginGithub(){
+    Swal.fire({
+      title: 'Em breve',
+      showConfirmButton: false,
+      timer: 2000,
+      width: 400,
+      imageUrl: logoGithub,
+      imageWidth: 100,
+      imageHeight: 100,
+      imageAlt: 'Logo Github',
+    })
+  }
+
   return (
     <Container>
       <Logo src={logo} />
       
       <Form onSubmit={handleSubmit}>
         <Title>Login</Title>
-        <GithubButton>Entrar com o Github</GithubButton>
+        <GithubButton
+          type='button'
+          onClick={handleLoginGithub}
+        >Entrar com o Github</GithubButton>
         <HorizontalSeparator><span>ou</span></HorizontalSeparator>
         <Input
           type='email' 
           placeholder='Email'
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
+          name='email'
+          onChange={handleInput}
+          value={userData.email}
           disabled={disabled}
           required
         />
         <Input 
           type='password'
           placeholder='Senha'
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
+          name='password'
+          onChange={handleInput}
+          value={userData.password}
           disabled={disabled}
           required
         />
