@@ -40,6 +40,9 @@ const Input = styled.input`
   line-height: 24px;
   letter-spacing: 0.15px;
   color: rgba(0, 0, 0, 0.6);
+
+  background-color: ${props => props.disabled ? '#BABABA' : '#FFFFFF'};
+  ${props => props.disabled && 'pointer-events: none;'}
 `
 
 const GithubButton = styled.button`
@@ -74,6 +77,10 @@ const Button = styled.button`
   width: 116px;
   height: 36px;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   background: #1976D2;
 
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12);
@@ -86,9 +93,9 @@ const Button = styled.button`
   letter-spacing: 0.4px;
   text-transform: uppercase;
   color: #FFFFFF;
-  text-align: center;
 
-  cursor: pointer;
+  cursor: ${props => props.disabled ? "not-allowed" : "pointer"};
+  opacity: ${props => props.disabled ? 0.7 : 1};
 `
 
 const StyledLink = styled(Link)`
