@@ -13,3 +13,7 @@ export function createUser(body) {
 export function login(body){
   return axios.post(`${BASE_URL}/login`, body)
 }
+
+export function logout(userId) {
+  return axios.delete(`${BASE_URL}/logout/${userId}`)
+}

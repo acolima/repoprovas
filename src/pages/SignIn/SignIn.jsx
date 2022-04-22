@@ -62,7 +62,7 @@ function SignIn() {
 
   return (
     <Container>
-      <Logo src={logo} />
+      <Logo src={logo} alt='RepoProvas logo'/>
       
       <Form onSubmit={handleSubmit}>
         <Title>Login</Title>
