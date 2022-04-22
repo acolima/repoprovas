@@ -3,14 +3,13 @@ import { createContext, useState } from 'react'
 const AuthContext = createContext()
 
 export function AuthProvider({children}) {
-  const [auth, setAuth] = useState()
+  const localAuth = JSON.parse(localStorage.getItem('auth'))
+  const [auth, setAuth] = useState(localAuth)
 
-  function setLocalAuth(token){
-    setAuth(token)
-    localStorage.setItem('@repoprovas/auth', token)
+  function setLocalAuth(authData){
+    setAuth(authData)
+    localStorage.setItem('auth', JSON.stringify(authData))
   }
-
-  console.log(auth)
 
   return (
     <AuthContext.Provider value={{ auth, setLocalAuth }}>
