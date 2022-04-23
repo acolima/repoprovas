@@ -15,7 +15,7 @@ import {
   Logo,
   StyledLink,
   Title
-} from '../../components/formComponents'
+} from '../../components/FormComponents'
 
 import * as api from '../../services/api'
 

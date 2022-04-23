@@ -1,5 +1,5 @@
-import logo from '../../assets/logo.png'
-import logout from '../../assets/logout.png'
+import logo from '../../../assets/logo.png'
+import logout from '../../../assets/logout.png'
 import {
   Container,
   Logo,
@@ -8,8 +8,8 @@ import {
   Nav,
   SearchBar
 } from './styles'
-import useAuth from '../../hooks/useAuth'
-import * as api from '../../services/api'
+import useAuth from '../../../hooks/useAuth'
+import * as api from '../../../services/api'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
