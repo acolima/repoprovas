@@ -11,8 +11,12 @@ export function AuthProvider({children}) {
     localStorage.setItem('auth', JSON.stringify(authData))
   }
 
+  function removeLocalAuth() {
+    localStorage.removeItem('auth')
+  }
+
   return (
-    <AuthContext.Provider value={{ auth, setLocalAuth }}>
+    <AuthContext.Provider value={{ auth, setLocalAuth, removeLocalAuth }}>
       {children}
     </AuthContext.Provider>
   )

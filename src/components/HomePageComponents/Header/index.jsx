@@ -14,12 +14,15 @@ import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
 function Header() {
-  const { auth } = useAuth()
+  const { auth, removeLocalAuth } = useAuth()
   const navigate = useNavigate()
 
   function handleLogout() {
-    api.logout(auth.userId)
-    .then(() => navigate('/'))
+    api.logout(auth)
+    .then(() => {
+      removeLocalAuth()
+      navigate('/')
+    })
     .catch(error => Swal.fire({icon: 'error', text: error.response.data}))
   }
 

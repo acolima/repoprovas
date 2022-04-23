@@ -39,7 +39,7 @@ function SignIn() {
     api.login(userData)
     .then((response) => {
       navigate('/home')
-      setLocalAuth(response.data)
+      setLocalAuth(response.data.token)
     })
     .catch((error) => {
       Swal.fire({icon: 'error', text: error.response.data})
