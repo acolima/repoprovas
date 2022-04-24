@@ -10,7 +10,8 @@ function Main(){
         flexDirection: 'column',
         alignItems: 'center',
         boxSizing: 'border-box',
-        height: '100vh',
+        height: '100%', // ou vh?
+        paddingBottom: '40px'
       }}
     >
       <Header/>

@@ -16,6 +16,12 @@ export function login(body){
 
 export function logout(token) {
   const config = createConfig(token)
-
+  
   return axios.post(`${BASE_URL}/logout`, {}, config)
+}
+
+export function getTestsByInstructor(token){
+  const config = createConfig(token)
+
+  return axios.get(`${BASE_URL}/tests/instructor`, config)
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
@@ -27,6 +27,10 @@ function SignIn() {
   const [disabled, setDisabled] = useState(false)
   const { setLocalAuth } = useAuth()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if(localStorage.getItem('auth')) navigate('/home')
+  }, [navigate])
 
   function handleInput(e) {
     setUserData({...userData, [e.target.name]: e.target.value})

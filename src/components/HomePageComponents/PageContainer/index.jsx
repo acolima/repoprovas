@@ -1,6 +1,7 @@
 import { Container } from '@mui/material'
 import Buttons from '../Buttons'
-import TestsByTerm from '../TermsComponents/testsByTerm'
+import TestsByTerm from '../TestsByTermsComponents/TestsByTerm'
+import TestsByInstructor from '../TestsByInstructorComponents/TestsByInstructor'
 import {useState} from 'react'
 
 function PageContainer() {
@@ -10,7 +11,7 @@ function PageContainer() {
     <Container sx={{ width: '80%', boxSizing: 'border-box', marginTop: '20px' }}>
       <Buttons value={buttonValue} setValue={setButtonValue}/>
       {buttonValue === 0 && <TestsByTerm/>}
-      {/* {buttonValue === 1 && <TestsByInstructor />} */}
+      {buttonValue === 1 && <TestsByInstructor />}
     </Container>
   )
 }
