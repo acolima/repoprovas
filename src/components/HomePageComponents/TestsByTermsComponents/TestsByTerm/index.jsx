@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import * as api from '../../../../services/api'
 import useAuth from '../../../../hooks/useAuth'
 import Swal from 'sweetalert2'
+import Loader from '../../Loader/Loader'
 
 function TestsByTerm() {
   const [terms, setTerms] = useState([])
@@ -18,6 +19,9 @@ function TestsByTerm() {
 				navigate('/')
 			})
 	}, [auth, navigate])
+
+  if(terms.length === 0)
+    return <Loader/>
 
   return (
 		<>

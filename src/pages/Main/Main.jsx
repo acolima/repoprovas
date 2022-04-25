@@ -18,7 +18,7 @@ function Main() {
       Swal.fire({ icon: 'error', text: 'Faça o login novamente' })
       navigate('/')
     } )
-  }, [auth])
+  }, [auth, navigate])
 
 
   return (

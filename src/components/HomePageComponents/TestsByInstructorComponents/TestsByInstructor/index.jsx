@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
 import useAuth from '../../../../hooks/useAuth'
 import * as api from '../../../../services/api'
 import Instructor from '../Instructor'
+import Loader from '../../Loader/Loader'
 
 function TestsByInstructor() {
   const [instructors, setInstructors] = useState([])
@@ -18,6 +19,9 @@ function TestsByInstructor() {
       navigate('/')
     })
   }, [auth, navigate])
+
+  if(instructors.length === 0)
+    return <Loader/>
 
   return (
     <>
