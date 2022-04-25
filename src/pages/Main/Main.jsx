@@ -13,7 +13,6 @@ function Main() {
 
   useEffect(() => {
     api.tokenValidation(auth)
-    .then(response => console.log(response))
     .catch(() => {
       Swal.fire({ icon: 'error', text: 'Faça o login novamente' })
       navigate('/')
