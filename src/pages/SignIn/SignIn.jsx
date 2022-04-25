@@ -1,23 +1,23 @@
 import { useEffect, useState } from 'react'
-import { ThreeDots } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import logo from '../../assets/logo.png'
 import logoGithub from '../../assets/logo-github.png'
-import { 
-  Button, 
-  Buttons, 
-  Container,  
-  Form, 
-  GithubButton,
-  HorizontalSeparator, 
-  Input, 
-  Logo,
-  StyledLink,
-  Title
-} from '../../components/FormComponents'
 import useAuth from '../../hooks/useAuth'
 import * as api from '../../services/api'
+import { 
+  Box, 
+  Button, 
+  Container, 
+  Divider, 
+  IconButton, 
+  InputAdornment, 
+  OutlinedInput, 
+  Typography 
+} from '@mui/material'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { LoadingButton } from '@mui/lab'
+import styles from '../../components/FormComponents'
 
 function SignIn() {
   const [userData, setUserData] = useState({
@@ -25,6 +25,8 @@ function SignIn() {
     password: ''
   })
   const [disabled, setDisabled] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const { setLocalAuth } = useAuth()
   const navigate = useNavigate()
 
@@ -38,7 +40,9 @@ function SignIn() {
 
   function handleSubmit(e){
     e.preventDefault()
+
     setDisabled(true)
+    setLoading(true)
 
     api.login(userData)
     .then((response) => {
@@ -48,6 +52,7 @@ function SignIn() {
     .catch((error) => {
       Swal.fire({icon: 'error', text: error.response.data})
       setDisabled(false)
+      setLoading(false)
     })
   }
 
@@ -65,47 +70,71 @@ function SignIn() {
   }
 
   return (
-    <Container>
-      <Logo src={logo} alt='RepoProvas logo'/>
+    <Container sx={styles.container}>
+      <Box sx={styles.boxLogo}>
+        <img src={logo} alt='RepoProvas logo'/>
+      </Box> 
       
-      <Form onSubmit={handleSubmit}>
-        <Title>Login</Title>
-        <GithubButton
+      <Box component='form' onSubmit={handleSubmit} sx={styles.boxForm}>
+        <Typography sx={ styles.title }>Login</Typography>
+        <Button
           type='button'
+          variant='contained'
           onClick={handleLoginGithub}
-        >Entrar com o Github</GithubButton>
-        <HorizontalSeparator><span>ou</span></HorizontalSeparator>
-        <Input
-          type='email' 
+          sx={styles.buttonGithubLogin}
+        >
+          Entrar com o Github
+        </Button>
+
+        <Box>
+          <Divider sx={styles.divider}>ou</Divider>
+        </Box>
+
+        <OutlinedInput
           placeholder='Email'
           name='email'
+          type='email' 
           onChange={handleInput}
           value={userData.email}
           disabled={disabled}
           required
+          sx={styles.input}
         />
-        <Input 
-          type='password'
+        <OutlinedInput 
           placeholder='Senha'
           name='password'
+          type={showPassword ? 'text' : 'password'}
           onChange={handleInput}
           value={userData.password}
           disabled={disabled}
+          sx={styles.input}
           required
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={() => setShowPassword(!showPassword)}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
         />
-        <Buttons>
-          <StyledLink to={'/sign-up'}>Não possuo cadastro</StyledLink>
-          <Button
+        <Box sx={styles.buttonsBox}>
+          <Typography sx={ styles.linkButton } onClick={() => navigate('/sign-up')}>
+            Não possuo cadastro
+          </Typography>
+          <LoadingButton
             type='submit'
             disabled={disabled}
+            variant='contained'
+            loading={loading}
           >
-            {disabled ? 
-              <ThreeDots color="#FFF" height={30} width={30} /> :
-              'Entrar'
-            }
-          </Button>
-        </Buttons>
-      </Form>
+            Entrar
+          </LoadingButton>
+        </Box>
+      </Box>
     </Container>
   )  
 }

@@ -1,22 +1,21 @@
 import { useState } from 'react'
-import { ThreeDots } from 'react-loader-spinner'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import logo from '../../assets/logo.png'
 import logoGithub from '../../assets/logo-github.png'
 import { 
+  Box, 
   Button, 
-  Buttons, 
-  Container,  
-  Form, 
-  GithubButton,
-  HorizontalSeparator, 
-  Input, 
-  Logo,
-  StyledLink,
-  Title
-} from '../../components/FormComponents'
-
+  Container, 
+  Divider, 
+  IconButton, 
+  InputAdornment, 
+  OutlinedInput, 
+  Typography 
+} from '@mui/material'
+import { LoadingButton } from '@mui/lab'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
+import styles from '../../components/FormComponents'
 import * as api from '../../services/api'
 
 function SignUp() {
@@ -26,6 +25,8 @@ function SignUp() {
   })
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
   const [disabled, setDisabled] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate()
 
   function handleInput(e) {
@@ -34,17 +35,21 @@ function SignUp() {
 
   function handleSubmit(event) {
     event.preventDefault()
+
     setDisabled(true)
+    setLoading(true)
 
     if(userData.password.length < 6){
       Swal.fire({icon: 'error', text: 'A senha deve ter pelo menos 6 caracteres'})
       setDisabled(false)
+      setLoading(false)
       return 
     }
     
     if(userData.password !== passwordConfirmation){
       Swal.fire({icon: 'error', text: 'Senhas não coincidem'})
       setDisabled(false)
+      setLoading(false)
       return 
     }
 
@@ -53,6 +58,7 @@ function SignUp() {
     .catch(error => {
       Swal.fire({icon: 'error', text: error.response.data})
       setDisabled(false)
+      setLoading(false)
     })
   }
 
@@ -70,55 +76,96 @@ function SignUp() {
   }
 
   return (
-    <Container>
-      <Logo src={logo} alt='RepoProvas logo'/>
-      
-      <Form onSubmit={handleSubmit}>
-        <Title>Cadastro</Title>
-        <GithubButton 
+    <Container sx={styles.container}>
+      <Box sx={styles.boxLogo}>
+        <img src={logo} alt='RepoProvas logo'/>
+      </Box>
+
+      <Box component='form' onSubmit={handleSubmit} sx={styles.boxForm}>
+        <Typography sx={styles.title}>Cadastro</Typography>
+
+        <Button
           type='button'
-          onClick={handleLoginGithub}  
-        >Entrar com o Github</GithubButton>
-        <HorizontalSeparator><span>ou</span></HorizontalSeparator>
-        <Input
-          type='email' 
+          variant='contained'
+          onClick={handleLoginGithub}
+          sx={styles.buttonGithubLogin}
+        >
+          Entrar com o Github
+        </Button>
+
+        <Box>
+          <Divider sx={styles.divider}>ou</Divider>
+        </Box>        
+        
+        <OutlinedInput
           placeholder='Email'
           name='email'
+          type='email' 
           onChange={handleInput}
           value={userData.email}
           disabled={disabled}
           required
+          sx={styles.input}
         />
-        <Input 
-          type='password'
+
+        <OutlinedInput 
           placeholder='Senha'
           name='password'
+          type={showPassword ? 'text' : 'password'}
           onChange={handleInput}
           value={userData.password}
           disabled={disabled}
+          sx={styles.input}
           required
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={() => setShowPassword(!showPassword)}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
         />
-        <Input 
-          type='password'
+
+        <OutlinedInput 
           placeholder='Confirme sua senha'
+          type={showPassword ? 'text' : 'password'}
           onChange={(e) => setPasswordConfirmation(e.target.value)}
           value={passwordConfirmation}
           disabled={disabled}
+          sx={styles.input}
           required
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={() => setShowPassword(!showPassword)}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
         />
-        <Buttons>
-          <StyledLink to={'/'}>Já possuo cadastro</StyledLink>
-          <Button 
+        
+        <Box sx={styles.buttonsBox}>
+          <Typography sx={styles.linkButton} onClick={() => navigate('/')}>
+            Já possuo cadastro
+          </Typography>
+          <LoadingButton
             type='submit'
             disabled={disabled}
+            variant='contained'
+            loading={loading}
           >
-            {disabled ? 
-              <ThreeDots color="#FFF" height={30} width={30} /> :
-              'Cadastrar'
-            }
-          </Button>
-        </Buttons>
-      </Form>
+            Cadastrar
+          </LoadingButton>
+        </Box>
+
+      </Box>
     </Container>
   )  
 }

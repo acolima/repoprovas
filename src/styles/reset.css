@@ -59,4 +59,5 @@ a {
 .root {
 	background-color: #fafafa;
 	min-height: 100vh;
+  width: 100vw;
 }

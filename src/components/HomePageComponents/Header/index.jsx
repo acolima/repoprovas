@@ -1,21 +1,27 @@
 import logo from '../../../assets/logo.png'
-import logout from '../../../assets/logout.png'
-import {
-  Container,
-  Logo,
-  LogoutButton,
-  HorizontalSeparator,
-  Nav,
-  SearchBar
-} from './styles'
 import useAuth from '../../../hooks/useAuth'
 import * as api from '../../../services/api'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import { Box, Container, Menu, MenuItem, TextField } from '@mui/material'
+import { useState } from 'react'
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import styles from "./styles"
 
 function Header() {
   const { auth, removeLocalAuth } = useAuth()
+  const [anchorEl, setAnchorEl] = useState(null)
+  const open = Boolean(anchorEl)
+
   const navigate = useNavigate()
+
+  function handleClick(e) {
+    setAnchorEl(e.currentTarget)
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+  }
 
   function handleLogout() {
     api.logout(auth)
@@ -27,17 +33,24 @@ function Header() {
   }
 
   return(
-    <Container>
-      <Nav>
-        <Logo src={logo} alt ='RepoProvas logo'/>
-        <LogoutButton onClick={handleLogout}>
-          <img src={logout} alt='Logout icon'/>
-        </LogoutButton>
-      </Nav>
-      <SearchBar
-        placeholder='Pesquise por disciplina'
-      />
-      <HorizontalSeparator/>
+    <Container sx={styles.container}>
+      <Box sx={styles.box}>
+        <Box>
+          <img src={logo} alt='RepoProvas logo' width='218'/>
+        </Box>
+
+        <LogoutRoundedIcon onClick={handleClick} sx={styles.logoutIcon}/>
+
+        <Menu
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        </Menu>
+      </Box>
+
+      <TextField label='Pesquise por disciplina' sx={styles.textfield}/>
     </Container>
   )
 }
