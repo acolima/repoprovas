@@ -31,7 +31,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 }
-ol, ul {
+ol,ul {
 	list-style: none;
 }
 blockquote, q {
@@ -53,9 +53,10 @@ input {
 * {
   box-sizing: border-box;
 }
-a{
+a {
   text-decoration: none;
 }
-.root{
-  background-color: #FAFAFA;
+.root {
+	background-color: #fafafa;
+	min-height: 100vh;
 }

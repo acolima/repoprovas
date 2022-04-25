@@ -1,41 +1,23 @@
-import { useState } from 'react'
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import Discipline from "../Discipline";
+import Discipline from '../Discipline'
 
-function Term({term, handleChangeTerm, expandedTerm}) {
-  const [expandedDiscipline, setExpandedDiscipline] = useState(false)
-
-  const handleChange = (term) => (event, isExpanded) => {
-    setExpandedDiscipline(isExpanded ? term : false);
-  }
-
-  return(
-    <Accordion expanded={expandedTerm === term} onChange={handleChangeTerm(term)}>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1bh-content"
-      >
-        <Typography sx={{ width: '33%', flexShrink: 0 }}>
-          1º Semestre
+function Term({ disciplines, termName }) {
+  return (
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography sx={{ fontSize: '18px' }}>
+          {termName}º Semestre
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Discipline 
-          discipline='discipline1' 
-          handleChange={handleChange} 
-          expandedDiscipline={expandedDiscipline}
-        />
-        <Discipline 
-          discipline='discipline1' 
-          handleChange={handleChange} 
-          expandedDiscipline={expandedDiscipline}
-        />
-        <Discipline 
-          discipline='discipline1' 
-          handleChange={handleChange} 
-          expandedDiscipline={expandedDiscipline}
-        />
+				{disciplines.map((discipline) => (
+					<Discipline
+						key={discipline.disciplineId}
+						tests={discipline.tests}
+						disciplineName={discipline.disciplineName}
+					/>
+				))}
       </AccordionDetails>
     </Accordion>
   )

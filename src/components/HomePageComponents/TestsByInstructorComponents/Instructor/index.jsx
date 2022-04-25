@@ -1,26 +1,24 @@
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import Tests from '../Tests'
+import Tests from '../../Tests'
 
-function Instructor({instructor}) {
+function Instructor({ instructor }) {
   const categories = instructor.categories
 
-  return(
+  return (
     <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />} >
-        <Typography sx={{ fontSize: '18px'}}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+        <Typography sx={{ fontSize: '18px' }}>
           {instructor.instructorName}
         </Typography>
       </AccordionSummary>
 
       {categories?.map(category =>
-        <AccordionDetails key={category.id}>
-          {category.tests.length !== 0 &&
-            <Tests
-              category={category}
-            />
-          }
-        </AccordionDetails>
+        category.tests.length !== 0 && (
+					<AccordionDetails key={category.id}>
+						<Tests category={category} instructor={true} />
+					</AccordionDetails>
+        )
       )}
     </Accordion>
   )

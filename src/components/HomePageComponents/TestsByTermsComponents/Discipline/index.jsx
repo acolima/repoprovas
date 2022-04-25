@@ -1,24 +1,21 @@
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material"
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import Tests from '../../Tests'
 
-function Discipline({discipline, handleChange, expandedDiscipline}) {
-
+function Discipline({ tests, disciplineName }) {
   return (
-    <Accordion expanded={expandedDiscipline === discipline} onChange={handleChange(discipline)}>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1bh-content"
-      >
-        <Typography sx={{ width: '33%', flexShrink: 0 }}>
-          CSS
-        </Typography>
-      </AccordionSummary>
-      <AccordionDetails>
-        <Typography>
-          Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-          Aliquam eget maximus est, id dignissim quam.
-        </Typography>
-      </AccordionDetails>
+    <Accordion>
+			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+				<Typography sx={{ fontSize: '16px' }}>{disciplineName}</Typography>
+			</AccordionSummary>
+			{tests.map(
+				(category) =>
+					category.tests.length !== 0 && (
+						<AccordionDetails key={category.id}>
+							<Tests category={category} term={true} />
+						</AccordionDetails>
+					)
+			)}
     </Accordion>
   )
 }

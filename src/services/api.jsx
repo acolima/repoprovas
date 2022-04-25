@@ -10,7 +10,7 @@ export function createUser(body) {
 	return axios.post(`${BASE_URL}/sign-up`, body)
 }
 
-export function login(body){
+export function login(body) {
   return axios.post(`${BASE_URL}/login`, body)
 }
 
@@ -20,8 +20,14 @@ export function logout(token) {
   return axios.post(`${BASE_URL}/logout`, {}, config)
 }
 
-export function getTestsByInstructor(token){
+export function getTestsByInstructor(token) {
   const config = createConfig(token)
 
   return axios.get(`${BASE_URL}/tests/instructor`, config)
+}
+
+export function getTestsByTerm(token) {
+	const config = createConfig(token)
+
+	return axios.get(`${BASE_URL}/tests/term`, config)
 }

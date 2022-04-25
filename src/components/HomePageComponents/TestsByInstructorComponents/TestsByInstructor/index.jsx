@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react' 
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import useAuth from '../../../../hooks/useAuth'
@@ -10,22 +10,20 @@ function TestsByInstructor() {
   const { auth } = useAuth()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    api.getTestsByInstructor(auth)
-    .then(response => {
-      setInstructors(response.data)
-    })
+	useEffect(() => {
+		api.getTestsByInstructor(auth)
+		.then((response) => setInstructors(response.data))
     .catch(() => {
-      Swal.fire({icon: 'error', text: 'Faça o login novamente'})
+      Swal.fire({ icon: 'error', text: 'Faça o login novamente' })
       navigate('/')
     })
   }, [auth, navigate])
 
   return (
     <>
-      {instructors.map(instructor => 
+      {instructors.map((instructor) =>
         <Instructor 
-          key={instructor.id}
+          key={instructor.instructorId}
           instructor={instructor}
         />
       )}
