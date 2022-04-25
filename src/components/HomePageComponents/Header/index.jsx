@@ -24,7 +24,7 @@ function Header() {
   }
 
   function handleLogout() {
-    api.logout(auth)
+    api.tokenValidation(auth)
     .then(() => {
       removeLocalAuth()
       navigate('/')

@@ -14,10 +14,10 @@ export function login(body) {
   return axios.post(`${BASE_URL}/login`, body)
 }
 
-export function logout(token) {
+export function tokenValidation(token) {
   const config = createConfig(token)
   
-  return axios.post(`${BASE_URL}/logout`, {}, config)
+  return axios.post(`${BASE_URL}/token`, {}, config)
 }
 
 export function getTestsByInstructor(token) {
