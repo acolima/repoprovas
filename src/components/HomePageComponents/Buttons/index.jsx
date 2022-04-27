@@ -11,8 +11,8 @@ function Buttons({value, setValue}){
         setValue(newValue);
       }}
       >
-        <BottomNavigationAction label="Disciplinas" />
-        <BottomNavigationAction label="Instrutores"  />
+        <BottomNavigationAction value='disciplina' label="Disciplinas" />
+        <BottomNavigationAction value='instrutor' label="Instrutores"  />
         <BottomNavigationAction label="Adicionar" disabled/>
     </BottomNavigation>
   )

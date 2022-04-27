@@ -1,7 +1,7 @@
 import { Container, Link, Typography } from '@mui/material'
 
 function Exams({ category, instructor, term }) {
-	const tests = category.tests;
+	const tests = category.tests
 	
   return (
 		<Container>

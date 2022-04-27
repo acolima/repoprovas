@@ -8,7 +8,7 @@ import { useState } from 'react'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import styles from "./styles"
 
-function Header() {
+function Header({ display }) {
   const { auth, removeLocalAuth } = useAuth()
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
@@ -50,7 +50,7 @@ function Header() {
         </Menu>
       </Box>
 
-      <TextField label='Pesquise por disciplina' sx={styles.textfield}/>
+      <TextField label={`Pesquise por ${display}`} sx={styles.textfield}/>
     </Container>
   )
 }
