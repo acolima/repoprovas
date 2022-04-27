@@ -1,6 +1,6 @@
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import Tests from '../../Tests'
+import Exams from '../../Exams'
 
 function Instructor({ instructor }) {
   const categories = instructor.categories
@@ -16,7 +16,7 @@ function Instructor({ instructor }) {
       {categories?.map(category =>
         category.tests.length !== 0 && (
 					<AccordionDetails key={category.id}>
-						<Tests category={category} instructor={true} />
+						<Exams category={category} instructor={true} />
 					</AccordionDetails>
         )
       )}

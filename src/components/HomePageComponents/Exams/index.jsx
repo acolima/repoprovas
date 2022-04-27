@@ -1,6 +1,6 @@
 import { Container, Link, Typography } from '@mui/material'
 
-function Tests({ category, instructor, term }) {
+function Exams({ category, instructor, term }) {
 	const tests = category.tests;
 	
   return (
@@ -31,4 +31,4 @@ function Tests({ category, instructor, term }) {
 	)
 }
 
-export default Tests
+export default Exams

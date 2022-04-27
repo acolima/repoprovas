@@ -1,6 +1,6 @@
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import Tests from '../../Tests'
+import Exams from '../../Exams'
 
 function Discipline({ tests, disciplineName }) {
   return (
@@ -12,7 +12,7 @@ function Discipline({ tests, disciplineName }) {
 				(category) =>
 					category.tests.length !== 0 && (
 						<AccordionDetails key={category.id}>
-							<Tests category={category} term={true} />
+							<Exams category={category} term={true} />
 						</AccordionDetails>
 					)
 			)}
