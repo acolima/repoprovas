@@ -4,6 +4,7 @@ import Buttons from '../../components/HomePageComponents/Buttons'
 import TestsByTerm from '../../components/HomePageComponents/TestsByTermsComponents/TestsByTerm'
 import TestsByInstructor from '../../components/HomePageComponents/TestsByInstructorComponents/TestsByInstructor'
 import { useEffect, useState } from 'react'
+import NewTest from '../../components/HomePageComponents/AddTest'
 
 function Main() {
   const [buttonValue, setButtonValue] = useState('disciplina')
@@ -28,6 +29,7 @@ function Main() {
         <Buttons value={buttonValue} setValue={setButtonValue}/>
         {buttonValue === 'disciplina' && <TestsByTerm/>}
         {buttonValue === 'instrutor' && <TestsByInstructor instructors={instructors} />}
+        {buttonValue === 'adicionar' && <NewTest setButtonValue={setButtonValue}/>}
       </Box>
     </Container>
   )

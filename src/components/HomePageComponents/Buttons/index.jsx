@@ -13,7 +13,7 @@ function Buttons({value, setValue}){
       >
         <BottomNavigationAction value='disciplina' label="Disciplinas" />
         <BottomNavigationAction value='instrutor' label="Instrutores"  />
-        <BottomNavigationAction label="Adicionar" disabled/>
+        <BottomNavigationAction value='adicionar' label='Adicionar' />
     </BottomNavigation>
   )
 }

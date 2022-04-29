@@ -3,23 +3,13 @@ import useAuth from '../../../hooks/useAuth'
 import * as api from '../../../services/api'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import { Box, Container, MenuItem, TextField } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { Box, Container, TextField, Typography } from '@mui/material'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import styles from "./styles"
 
-function Header({ display, setSearchFor }) {
-  const [searchList, setSearchList] = useState([])
-  const [searchText, setSearchText] = useState('')
+function Header({ display }) {
   const { auth, removeLocalAuth } = useAuth()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    if(display === 'instrutor'){
-      api.getInstructors(auth)
-        .then(response => setSearchList(response.data))
-    }
-  }, [display, auth])
 
   function handleLogout() {
     api.tokenValidation(auth)
@@ -28,10 +18,6 @@ function Header({ display, setSearchFor }) {
       navigate('/')
     })
     .catch(error => Swal.fire({icon: 'error', text: error.response.data}))
-  }
-
-  function handleChange(e) {
-    setSearchText(e.target.value)
   }
 
   return(
@@ -45,22 +31,15 @@ function Header({ display, setSearchFor }) {
 
       </Box>
 
-      <TextField 
-        select 
-        label={`Pesquise por ${display}`} 
-        sx={styles.textfield}
-        value={searchText}
-        onChange={handleChange}
-      >
-        <MenuItem value='Todos' onClick={() => setSearchFor('Todos')}>Todos</MenuItem>
-        {searchList.map(instrutor => 
-          <MenuItem 
-            key={instrutor.id} 
-            value={instrutor.name}
-            onClick={() => setSearchFor(instrutor)}
-          >{instrutor.name}</MenuItem>
-        )}
-      </TextField>
+      {display === 'adicionar' ? 
+        <Typography sx={styles.title}>Adicione uma prova</Typography>
+      :
+        <TextField 
+          label={`Pesquise por ${display}`} 
+          sx={styles.textfield}
+          disabled
+        />
+      }
     </Container>
   )
 }

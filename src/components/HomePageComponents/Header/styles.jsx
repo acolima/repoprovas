@@ -25,6 +25,13 @@ const styles = {
     fontSize: '16px',
     color: 'rgba(0, 0, 0, 0.6)',
     alignSelf: 'center'
+  },
+  title: {
+    fontFamily: 'Poppins',
+    fontWeight: '500',
+    fontSize: '24px',
+    textAlign: 'center',
+    color: 'rgba(0, 0, 0, 0.8)'
   }
 }
 
