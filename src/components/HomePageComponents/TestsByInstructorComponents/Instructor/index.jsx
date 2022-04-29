@@ -2,14 +2,13 @@ import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Exams from '../../Exams'
 
-function Instructor({ instructor }) {
-  const categories = instructor.categories
+function Instructor({ categories, name }) {
 
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography sx={{ fontSize: '18px' }}>
-          {instructor.instructorName}
+          {name}
         </Typography>
       </AccordionSummary>
 

@@ -6,29 +6,47 @@ import * as api from '../../../../services/api'
 import Instructor from '../Instructor'
 import Loader from '../../Loader/Loader'
 
-function TestsByInstructor() {
-  const [instructors, setInstructors] = useState([])
+function TestsByInstructor({ instructors }) {
+  const [categories, setCategories] = useState([])
+  const [instructorsArray, setInstructorsArray] = useState([])
   const { auth } = useAuth()
   const navigate = useNavigate()
 
 	useEffect(() => {
-		api.getTestsByInstructor(auth)
-		.then((response) => setInstructors(response.data))
-    .catch(() => {
-      Swal.fire({ icon: 'error', text: 'Faça o login novamente' })
-      navigate('/')
-    })
-  }, [auth, navigate])
+    if(instructors !== 'Todos'){ 
+      api.getInstructorTest(instructors.id, auth)
+        .then(response => setCategories(response.data))
+        .catch(() => Swal.fire({ icon: 'error', text: 'Faça o login novamente' }))
+    }
+    else{
+      api.getTestsByInstructor(auth)
+        .then((response) => setInstructorsArray(response.data))
+        .catch(() => {
+          Swal.fire({ icon: 'error', text: 'Faça o login novamente' })
+          navigate('/')
+        })
+    }
+  }, [auth, navigate, instructors])
 
-  if(instructors.length === 0)
+  if(instructorsArray.length === 0)
     return <Loader/>
+
+  if(instructors !== 'Todos')
+    return (
+      <Instructor 
+        key={instructors.id}
+        name={instructors.name}
+        categories={categories}
+      />
+    )
 
   return (
     <>
-      {instructors.map((instructor) =>
+      {instructorsArray.map((instructor) =>
         <Instructor 
           key={instructor.instructorId}
-          instructor={instructor}
+          name={instructor.instructorName}
+          categories={instructor.categories}
         />
       )}
     </>

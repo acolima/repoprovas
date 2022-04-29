@@ -4,32 +4,30 @@ import Buttons from '../../components/HomePageComponents/Buttons'
 import TestsByTerm from '../../components/HomePageComponents/TestsByTermsComponents/TestsByTerm'
 import TestsByInstructor from '../../components/HomePageComponents/TestsByInstructorComponents/TestsByInstructor'
 import { useEffect, useState } from 'react'
-import useAuth from '../../hooks/useAuth'
-import * as api from '../../services/api'
-import Swal from 'sweetalert2'
-import { useNavigate } from 'react-router-dom'
 
 function Main() {
   const [buttonValue, setButtonValue] = useState('disciplina')
-  const { auth } = useAuth()
-  const navigate = useNavigate()
+  const [instructors, setInstructors] = useState('Todos')
+  const [searchFor, setSearchFor] = useState('Todos')
 
   useEffect(() => {
-    api.tokenValidation(auth)
-    .catch(() => {
-      Swal.fire({ icon: 'error', text: 'Faça o login novamente' })
-      navigate('/')
-    } )
-  }, [auth, navigate])
+    if(buttonValue === 'instrutor'){
+      if(searchFor === 'Todos') setInstructors('Todos')
+      else setInstructors(searchFor)
+    }
+  }, [buttonValue, searchFor])
 
   return (
     <Container sx={styles.pageContainer}>
-      <Header display={buttonValue}/>
+      <Header 
+        display={buttonValue}
+        setSearchFor={setSearchFor}  
+      />
 
       <Box sx={styles.buttons}>
         <Buttons value={buttonValue} setValue={setButtonValue}/>
         {buttonValue === 'disciplina' && <TestsByTerm/>}
-        {buttonValue === 'instrutor' && <TestsByInstructor />}
+        {buttonValue === 'instrutor' && <TestsByInstructor instructors={instructors} />}
       </Box>
     </Container>
   )
