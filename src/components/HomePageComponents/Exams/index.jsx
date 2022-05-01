@@ -1,30 +1,24 @@
-import { Container, Link, Typography } from '@mui/material'
+import { Box, Container, Link, Typography } from '@mui/material'
+import { useState } from 'react'
+import styles from './styles'
+import Views from './ViewsLabel'
 
 function Exams({ category, instructor, term }) {
 	const tests = category.tests
-	
+
   return (
 		<Container>
-			<Typography sx={{ fontSize: '16px' }}>{category.name}</Typography>
-			<Container>
+			<Typography sx={styles.categoryTitle}>{category.name}</Typography>
+
+      <Container sx={styles.container}>
 				{tests.length !== 0 &&
 					tests.map((test) => (
-						<Link
-							key={test.id}
-							href={test.pdfUrl}
-							underline='hover'
-							target='_blank'
-							rel='noopener'
-							color='#878787'
-							variant='subtitle1'
-						>
-							{instructor && (
-								<p>{test.name} ({test.teachersDisciplines.disciplines.name})</p>
-							)}
-							{term && (
-                <p>{test.name} ({test.teachersDisciplines.teachers.name})</p>
-							)}
-						</Link>
+						<Exam 
+              key={test.id}
+              test={test}
+              instructor={instructor}
+              term={term}
+            />
 					))}
 			</Container>
 		</Container>
@@ -32,3 +26,32 @@ function Exams({ category, instructor, term }) {
 }
 
 export default Exams
+
+function Exam({ test, instructor, term}){
+  const [update, setUpdate] = useState(false)
+
+  function handleViewCount() {
+    setUpdate(!update)
+  }
+  
+  return (
+    <Box sx={styles.linkBox} onClick={handleViewCount}>
+      <Link
+        href={test.pdfUrl}
+        underline='hover'
+        target='_blank'
+        rel='noopener'
+        sx={styles.text}
+      >
+        {instructor && (
+          <p>{test.name} ({test.teachersDisciplines.disciplines.name})</p>
+        )}
+        {term && (
+          <p>{test.name} ({test.teachersDisciplines.teachers.name})</p>
+        )}
+      </Link>
+
+      <Views count={test.views} id={test.id} update={update} setUpdate={setUpdate}/>
+    </Box>
+  )
+}

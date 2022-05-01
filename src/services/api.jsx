@@ -65,5 +65,11 @@ export function getInstructorsByDiscipline(token, disciplineId) {
 export function createTest(token, body) {
   const config = createConfig(token)
 
-  return axios.post(`${BASE_URL}/tests/newTest`, body, config)  
+  return axios.post(`${BASE_URL}/tests/create`, body, config)  
+}
+
+export function updateViewsCount(token, id) {
+  const config = createConfig(token)
+
+  return axios.patch(`${BASE_URL}/tests/${id}/views`, {}, config)
 }
