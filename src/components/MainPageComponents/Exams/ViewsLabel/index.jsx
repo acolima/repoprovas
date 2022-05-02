@@ -1,7 +1,7 @@
-import { Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
-import * as api from '../../../../services/api'
+import { Typography } from '@mui/material'
 import useAuth from '../../../../hooks/useAuth'
+import * as api from '../../../../services/api'
 import styles from '../styles'
 
 function Views({ count, id, update, setUpdate }){
@@ -12,7 +12,6 @@ function Views({ count, id, update, setUpdate }){
     if(update){
       api.updateViewsCount(auth, id)
       .then(response => {
-        console.log(response.data.views)
         setViews(response.data.views)
         setUpdate(!update)
       })

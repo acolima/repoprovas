@@ -1,5 +1,10 @@
-import { Box, Container, Link, Typography } from '@mui/material'
 import { useState } from 'react'
+import { 
+  Box, 
+  Container, 
+  Link, 
+  Typography 
+} from '@mui/material'
 import styles from './styles'
 import Views from './ViewsLabel'
 
@@ -51,7 +56,12 @@ function Exam({ test, instructor, term}){
         )}
       </Link>
 
-      <Views count={test.views} id={test.id} update={update} setUpdate={setUpdate}/>
+      <Views 
+        count={test.views} 
+        id={test.id} 
+        update={update} 
+        setUpdate={setUpdate}
+      />
     </Box>
   )
 }

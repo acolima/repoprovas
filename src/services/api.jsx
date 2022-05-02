@@ -32,18 +32,6 @@ export function getTestsByTerm(token) {
 	return axios.get(`${BASE_URL}/tests/term`, config)
 }
 
-export function getInstructors(token) {
-  const config = createConfig(token)
-  
-  return axios.get(`${BASE_URL}/instructors`, config)
-}
-
-export function getInstructorTest(id, token) {
-  const config = createConfig(token)
-  
-  return axios.get(`${BASE_URL}/tests/instructor/${id}`, config)
-}
-
 export function getCategories(token) {
   const config = createConfig(token)
   

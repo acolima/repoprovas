@@ -1,6 +1,6 @@
-import Main from './Main/Main'
-import SignIn from './SignIn/SignIn'
-import SignUp from './SignUp/SignUp'
+import Main from './Main/index'
+import SignIn from './SignIn/index'
+import SignUp from './SignUp/index'
 
 export {
   Main,
