@@ -23,13 +23,13 @@ export function tokenValidation(token) {
 export function getTestsByInstructor(token) {
   const config = createConfig(token)
 
-  return axios.get(`${BASE_URL}/tests/instructor`, config)
+  return axios.get(`${BASE_URL}/tests/instructors`, config)
 }
 
 export function getTestsByTerm(token) {
 	const config = createConfig(token)
   
-	return axios.get(`${BASE_URL}/tests/term`, config)
+	return axios.get(`${BASE_URL}/tests/terms`, config)
 }
 
 export function getCategories(token) {
