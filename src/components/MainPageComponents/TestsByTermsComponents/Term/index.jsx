@@ -1,21 +1,19 @@
-import { 
-  Accordion, 
-  AccordionDetails, 
-  AccordionSummary, 
-  Typography 
-} from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import Discipline from '../Discipline'
+import {
+	Accordion,
+	AccordionDetails,
+	AccordionSummary,
+	Typography,
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Discipline from '../Discipline';
 
 function Term({ disciplines, termName }) {
-  return (
-    <Accordion>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography sx={{ fontSize: '18px' }}>
-          {termName}º Semestre
-        </Typography>
-      </AccordionSummary>
-      <AccordionDetails>
+	return (
+		<Accordion>
+			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
+				<Typography sx={{ fontSize: '18px' }}>{termName}º Semestre</Typography>
+			</AccordionSummary>
+			<AccordionDetails>
 				{disciplines.map((discipline) => (
 					<Discipline
 						key={discipline.disciplineId}
@@ -23,9 +21,9 @@ function Term({ disciplines, termName }) {
 						disciplineName={discipline.disciplineName}
 					/>
 				))}
-      </AccordionDetails>
-    </Accordion>
-  )
+			</AccordionDetails>
+		</Accordion>
+	);
 }
 
-export default Term
+export default Term;

@@ -1,15 +1,15 @@
-import { 
-  Accordion, 
-  AccordionDetails, 
-  AccordionSummary, 
-  Typography 
-} from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import Exams from '../../Exams'
+import {
+	Accordion,
+	AccordionDetails,
+	AccordionSummary,
+	Typography,
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Exams from '../../Exams';
 
 function Discipline({ tests, disciplineName }) {
-  return (
-    <Accordion>
+	return (
+		<Accordion>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<Typography sx={{ fontSize: '16px' }}>{disciplineName}</Typography>
 			</AccordionSummary>
@@ -21,8 +21,8 @@ function Discipline({ tests, disciplineName }) {
 						</AccordionDetails>
 					)
 			)}
-    </Accordion>
-  )
+		</Accordion>
+	);
 }
 
-export default Discipline
+export default Discipline;
