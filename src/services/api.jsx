@@ -7,17 +7,17 @@ function createConfig(token) {
 }
 
 export function createUser(body) {
-	return axios.post(`${BASE_URL}/sign-up`, body);
+	return axios.post(`${BASE_URL}/users/sign-up`, body);
 }
 
 export function login(body) {
-	return axios.post(`${BASE_URL}/login`, body);
+	return axios.post(`${BASE_URL}/auth/sign-in`, body);
 }
 
-export function tokenValidation(token) {
+export function logout(token) {
 	const config = createConfig(token);
 
-	return axios.post(`${BASE_URL}/token`, {}, config);
+	return axios.post(`${BASE_URL}/auth/sign-out`, {}, config);
 }
 
 export function getTestsByInstructor(token) {

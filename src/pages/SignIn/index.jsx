@@ -44,6 +44,16 @@ function SignIn() {
 		setDisabled(true);
 		setLoading(true);
 
+		if (userData.password.length < 6) {
+			Swal.fire({
+				icon: 'error',
+				text: 'A senha deve ter pelo menos 6 caracteres',
+			});
+			setDisabled(false);
+			setLoading(false);
+			return;
+		}
+
 		api
 			.login(userData)
 			.then((response) => {
